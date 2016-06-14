@@ -9372,6 +9372,11 @@ struct mg_resolve_async_request {
   int retries;
 };
 
+void mg_set_dns_server(char *dnsServer, int size)
+{
+    sprintf_s(mg_dns_server, 256, "udp://%s:53", dnsServer);
+}
+
 /*
  * Find what nameserver to use.
  *

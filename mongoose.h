@@ -1324,6 +1324,11 @@ struct mg_connection {
 void mg_mgr_init(struct mg_mgr *mgr, void *user_data);
 
 /*
+* Sets the dns server for mongoose will use.
+*/
+void mg_set_dns_server(char *dnsServer, int size);
+
+/*
  * De-initializes Mongoose manager.
  *
  * Close and deallocate all active connections.
