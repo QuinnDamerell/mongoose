@@ -2,10 +2,10 @@
 #ifdef MG_MODULE_LINES
 #line 1 "./src/internal.h"
 #endif
-/*
- * Copyright (c) 2014 Cesanta Software Limited
- * All rights reserved
- */
+//
+// Copyright (c) 2014 Cesanta Software Limited
+// All rights reserved
+//
 
 #ifndef CS_MONGOOSE_SRC_INTERNAL_H_
 #define CS_MONGOOSE_SRC_INTERNAL_H_
@@ -7842,7 +7842,11 @@ void mg_register_http_endpoint(struct mg_connection *nc, const char *uri_path,
   struct mg_http_proto_data *pd = mg_http_get_proto_data(nc);
   struct mg_http_endpoint *new_ep =
       (struct mg_http_endpoint *) calloc(1, sizeof(*new_ep));
+#ifdef  _MSC_VER  
   new_ep->name = _strdup(uri_path);
+#else
+  new_ep->name = strdup(uri_path);
+#endif
   new_ep->name_len = strlen(new_ep->name);
   new_ep->handler = handler;
   new_ep->next = pd->endpoints;
@@ -9374,7 +9378,11 @@ struct mg_resolve_async_request {
 
 void mg_set_dns_server(char *dnsServer, int size)
 {
+#ifdef  _MSC_VER  
     sprintf_s(mg_dns_server, 256, "udp://%s:53", dnsServer);
+#else
+    sprintf(mg_dns_server, "udp://%s:53", dnsServer);
+#endif    
 }
 
 /*
